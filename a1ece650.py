@@ -1,13 +1,14 @@
 import re
 import sys
 import operator
+import time
+import os
     
-
 
 class Assignment_1:
     
 
-        def __init__(st):   # defining and initializing the st object 
+        def __init__(st):   # defining and initializing the st and self objects 
     
             
             st.street_nodes = {}                # key:value street_name:[street_nodes]
@@ -18,7 +19,7 @@ class Assignment_1:
             st.temp_list = set()                # storage for the shortest path (temporary)
             st.V_ids = {}                       # storage to match vertex ID and vertex
             st.maxid = 0                        # the max id for the current vertex
-            st.end_re = re.compile("^sys.exit(0)$")    # the regular expression for the pattern of closing the program
+            st.end_re = re.compile("^exit$")    # the regular expression for the pattern of closing the program
             st.error_messages = {               # list of possible errors key:value
                 "wrong_input_format"    : "Error: input does not match the required format.\n" , 
                 "street_does_not_exist" : "Error: 'c' or 'r' specified for a street that does not exist.\n",
@@ -45,7 +46,6 @@ class Assignment_1:
                     command = raw_input()
                 except EOFError:
                     command = "exit"
-    
 
             return command
     
@@ -77,7 +77,7 @@ class Assignment_1:
         def command_handler(st, command):# Handles all input commands, the exceptions & errors and stores streets as its nodes
             
             ac_command_re = re.compile("^(a|c)\s(\"[A-Za-z]+\s*[A-Za-z]+\s*[A-Za-z]+\")\s((\([-]?[0-9]{1,3}?\,[-]?[0-9]{1,3}?\)+)+)$")
-            remove_command_re = re.compile("^r\s(\"[A-Za-z]+\s*[A-Za-z]+\s*[A-Za-z]+\"$)")
+            remv_command_re = re.compile("^r\s(\"(.*)\")$")
             graph_command_re = re.compile('^g$')
             node_re = re.compile("(.*),(.*)\)")
     
@@ -128,21 +128,21 @@ class Assignment_1:
                 return True
     
 
-            elif remove_command_re.search(command):
+            elif remv_command_re.search(command):
 
-                street_name = remove_command_re.findall(command)[0]
+                street_name = remv_command_re.findall(command)[0][0].lower()
+
                 if not st.does_street_exist(street_name):
                     sys.stderr.write(st.error_messages["street_does_not_exist"])
                     return False
 
                 del st.street_nodes[street_name]
                 return True
-    
 
             elif not graph_command_re.search(command):
                 sys.stderr.write(st.error_messages["wrong_input_format"])
                 return False
-    
+
 
         def populate_tree(st): # getting the nodes and the edges
 
@@ -355,18 +355,21 @@ class Assignment_1:
 
 
 def main():
-
-    if __name__ == "__main__":
-        vertex = Assignment_1()
-        vertex.run_sim()
+    
+    vertex = Assignment_1()
+    vertex.run_sim()
 
     while True:
         line = sys.stdin.readline()
-        
-
-    print 'Finished reading input'
-# return exit code 0 on successful termination
-    sys.exit(0)
+        time.sleep(0.1)
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print
+        print'The program has been interrupted'
+        try:
+            sys.exit(0)
+        except SystemExit:
+            os._exit(0)
