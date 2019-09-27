@@ -76,7 +76,7 @@ class Assignment_1:
 
         def command_handler(st, command):# Handles all input commands, the exceptions & errors and stores streets as its nodes
             
-            ac_command_re = re.compile("^(a|c)\s(\"[A-Za-z]+\s*[A-Za-z]+\s*[A-Za-z]+\")\s((\([-]?[0-9]{1,3}?\,[-]?[0-9]{1,3}?\)+)+)$")
+            ac_command_re = re.compile("^(a|c)\s(\"\s*[A-Za-z]+\s*[A-Za-z]+\s*[A-Za-z]+\s*\")\s((\(\s*[-]?[0-9]{1,3}?\s*\,\s*[-]?[0-9]{1,3}?\s*\)+\s*)+)$")
             remv_command_re = re.compile("^r\s(\"(.*)\")$")
             graph_command_re = re.compile('^g$')
             node_re = re.compile("(.*),(.*)\)")
