@@ -76,7 +76,7 @@ class Assignment_1:
 
         def command_handler(st, command):# Handles all input commands, the exceptions & errors and stores streets as its nodes
             
-            ac_command_re = re.compile("^(a|c)\s(\"\s*[A-Za-z]*\s*[A-Za-z]*\s*[A-Za-z]*\s*\")\s((\(\s*[-]?[0-9]{1,3}?\s*\,\s*[-]?[0-9]{1,3}?\s*\)+\s*)+)$")
+            ac_command_re = re.compile("^(a|c)\s(\"\s*[A-Za-z]*\s*[A-Za-z]*\s*[A-Za-z]*\s*[A-Za-z]*\s[A-Za-z]*\s*[A-Za-z]*\s*\"\s((\(\s*[-]?[0-9]{1,3}?\s*\,\s*[-]?[0-9]{1,3}?\s*\)+\s*)+))$")
             remv_command_re = re.compile("^r\s(\"(.*)\")$")
             graph_command_re = re.compile('^g$')
             node_re = re.compile("(.*),(.*)\)")
@@ -337,23 +337,23 @@ class Assignment_1:
 
         def output_tree(st):    
 
-            print 'V = {'
+            sys.stdout.write('\nV = {\n')
             for v in st.V.keys():
-                print ' ', str(v) + ": (" + "%.2f" % st.V[v][0] + "," + "%.2f" % st.V[v][1] + ")"
-            print '}'
-            print 'E = {'
+                sys.stdout.write(' ' + str(v) + ": (" + "%.2f" % st.V[v][0] + "," + "%.2f" % st.V[v][1] + ")\n")
+            sys.stdout.write('}\n')
+            sys.stdout.write('E = {\n')
             maxid = 0
             for e in st.E:
                 if maxid == len(st.E) - 1:
                     if int(e[0]) != 0 and int(e[1]) != 0:
-                        print ' <' + str(int(e[0])) + "," + str(int(e[1])) + '>'
+                        sys.stdout.write(' <' + str(int(e[0])) + "," + str(int(e[1])) + '>\n')
                 else:
                     if int(e[0]) != 0 and int(e[1]) != 0:
-                        print ' <' + str(int(e[0])) + "," + str(int(e[1])) + '>,'
+                        sys.stdout.write(' <' + str(int(e[0])) + "," + str(int(e[1])) + '>,\n')
                         maxid += 1
     
 
-            print '}'  
+            sys.stdout.write('}\n')  
 
 
 def main():
