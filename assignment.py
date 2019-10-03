@@ -76,7 +76,7 @@ class Assignment_1:
 
         def command_handler(st, command):# Handles all input commands, the exceptions & errors and stores streets as its nodes
             
-            ac_command_re = re.compile("^(a|c)\s+(\"\s*[A-Za-z]+\s*[A-Za-z]+\s*[A-Za-z]+\s*[A-Za-z]+\s*\")\s+((\(\s*[-]?[0-9]{1,3}?\s*\,\s*[-]?[0-9]{1,3}?\s*\)+\s*)+)$")
+            ac_command_re = re.compile("^(a|c)\s(\"\s*[A-Za-z]*\s*[A-Za-z]*\s*[A-Za-z]*\s*[A-Za-z]*\s[A-Za-z]*\s*[A-Za-z]*\s*\"\s((\(\s*[-]?[0-9]{1,3}?\s*\,\s*[-]?[0-9]{1,3}?\s*\)+\s*)+))$")
             remv_command_re = re.compile("^r\s(\"(.*)\")$")
             graph_command_re = re.compile('^g$')
             node_re = re.compile("(.*),(.*)\)")
@@ -88,11 +88,13 @@ class Assignment_1:
                 action = data[0]
                 street_name = data[1].lower()
                 nodes = data[2].strip(" ").split("(")
+                #print(nodes)
+                #print(street_name)
                 del nodes[0]
     
 
                 if len(nodes) < 2:
-                    #sys.stderr.write(st.error_messages["insufficient_nodes"])
+                    sys.stderr.write(st.error_messages["insufficient_nodes"])
                     return False
     
 
@@ -335,23 +337,23 @@ class Assignment_1:
 
         def output_tree(st):    
 
-            sys.stderr.write('V = {\n')
+            sys.stdout.write('\nV = {\n')
             for v in st.V.keys():
-                sys.stderr.write(' ' + str(v) + ": (" + "%.2f" % st.V[v][0] + "," + "%.2f" % st.V[v][1] + ")\n")
-            sys.stderr.write('}\n')
-            sys.stderr.write('\nE = {\n')
+                sys.stdout.write(' ' + str(v) + ": (" + "%.2f" % st.V[v][0] + "," + "%.2f" % st.V[v][1] + ")\n")
+            sys.stdout.write('}\n')
+            sys.stdout.write('E = {\n')
             maxid = 0
             for e in st.E:
                 if maxid == len(st.E) - 1:
                     if int(e[0]) != 0 and int(e[1]) != 0:
-                        sys.stderr.write(' <' + str(int(e[0])) + "," + str(int(e[1])) + '>\n')
+                        sys.stdout.write(' <' + str(int(e[0])) + "," + str(int(e[1])) + '>\n')
                 else:
                     if int(e[0]) != 0 and int(e[1]) != 0:
-                        sys.stderr.write(' <' + str(int(e[0])) + "," + str(int(e[1])) + '>,\n')
+                        sys.stdout.write(' <' + str(int(e[0])) + "," + str(int(e[1])) + '>,\n')
                         maxid += 1
     
 
-            sys.stderr.write('}\n')  
+            sys.stdout.write('}\n')  
 
 
 def main():
