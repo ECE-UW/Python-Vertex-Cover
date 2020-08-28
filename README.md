@@ -1,13 +1,10 @@
-# ECE650 : Assignment 1
+# Submitted for course work ECE650 : Assignment 1
 
-Replace FIRST_NAME, LAST_NAME, WATIAM, and STUDENT_ID, EMAIL in
-`user.yml` by your first and last name, WatIAM id, student number, and
-email, respectively. Whenever possible, please use ASCII characters.
+Vertex Cover Optimization problem: Edges and Vertices
 
-Do not change the format `user.yml`. We will parse it
-automatically. Only enter the information requested.
+A python script that takes street inputs with names and coordinates on <x,y> plane, removes/changes existing street data and outputs a graph of vertices and edges.
 
-The main file for your solution to the assignment should be
-`a1ece650.py`. You can use `test.py` for your unit tests.
-
-Commit your changes and submit on GitHub.
+a - add a street 
+c - change its coordinates or its name
+r - remove a street
+g - output the graph of streets
